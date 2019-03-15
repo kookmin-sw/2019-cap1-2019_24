@@ -26,7 +26,7 @@
 
 <h4> 서민호 </h4>
 <p>-20123371 <br>
-  -Email : <br>
+  -Email : jackseo94@naver.com <br>
   -Android application 개발 및 UI/UX 담당  </p>
   <br>
 
@@ -34,7 +34,7 @@
 
 <h4> 손민지 </h4>
 <p>-20123376 <br>
-  -Email : <br>
+  -Email : amyminjison@gmail.com <br>
   -Android application 개발 및 UI/UX 담당  </p>
   <br>
 
@@ -50,7 +50,7 @@
 
 <h4> 장지은 </h4>
 <p>-20133256 <br>
-  -Email :  <br>
+  -Email : killkkk666@kookmin.ac.kr <br>
   -자동태그 기능 개발 및 서버 구축  </p>
   <br>
 
