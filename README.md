@@ -14,11 +14,15 @@
 
 #### 1. 지도 교수 : 박하명 교수님
 
+<img src="./image/정찬영.jpg" width="200">
+
 <h4> 정찬영(팀장) </h4>
 <p>-20133259 <br>
   -Email : <br>
   -자동 태그 기능 개발 및 데이터 베이스 설계  </p>
   <br>
+  
+<img src="./image/서민호.jpg" width="200">
 
 <h4> 서민호 </h4>
 <p>-20123371 <br>
@@ -26,11 +30,15 @@
   -Android application 개발 및 UI/UX 담당  </p>
   <br>
 
+<img src="./image/손민지.jpg" width="200">
+
 <h4> 손민지 </h4>
 <p>-20123376 <br>
   -Email : <br>
   -Android application 개발 및 UI/UX 담당  </p>
   <br>
+
+<img src="./image/이가빈.jpg" width="200">
 
 <h4> 이가빈 </h4>
 <p>-20153203 <br>
@@ -38,7 +46,9 @@
   -수동 태그 기능 개발 및 데이터 네트워크 알고리즘 구현  </p>
   <br>
 
-<h4> 장진은 </h4>
+<img src="./image/장지은.jpg" width="200">
+
+<h4> 장지은 </h4>
 <p>-20133256 <br>
   -Email :  <br>
   -자동태그 기능 개발 및 서버 구축  </p>
