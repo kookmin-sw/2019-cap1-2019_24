@@ -14,29 +14,35 @@ Witty Photos - 더 똑똑한 갤러리
 
 #### 1. 지도 교수 : 박하명 교수님
 
-#### 팀장 : 정찬영
--20133259
--자동 태그 기능 개발 및 데이터 베이스
--Email : 
+<h4> 정찬영(팀장) </h4>
+<p>-20133259 <br>
+  -Email : <br>
+  -자동 태그 기능 개발 및 데이터 베이스 설계  </p>
+  <br>
 
-#### 팀원 : 서민호
--20123371
--Android application 개발 및 UI/UX 담당
--Email : 
+<h4> 서민호 </h4>
+<p>-20123371 <br>
+  -Email : <br>
+  -Android application 개발 및 UI/UX 담당  </p>
+  <br>
 
-#### 팀원 : 손민지
--20123376
--Android application 개발 및 UI/UX 담당
--Email : 
+<h4> 손민지 </h4>
+<p>-20123376 <br>
+  -Email : <br>
+  -Android application 개발 및 UI/UX 담당  </p>
+  <br>
 
-#### 팀원 : 이가빈
--20153203
--수동 태그 기능 개발 및 데이터 네트워크 알고리즘 구현
--Email : kv829ly@naver.com
+<h4> 이가빈 </h4>
+<p>-20153203 <br>
+  -Email : kv829ly@naver.com <br>
+  -수동 태그 기능 개발 및 데이터 네트워크 알고리즘 구현  </p>
+  <br>
 
-#### 팀원 : 장지은
--20133256
--자동태그 기능 개발 및 서버 구축
--Email : 
+<h4> 장진은 </h4>
+<p>-20133256 <br>
+  -Email :  <br>
+  -자동태그 기능 개발 및 서버 구축  </p>
+  <br>
+
 
 팀원정보 및 담당이나 사진 및 SNS를 이용하여 소개하세요.
