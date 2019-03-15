@@ -18,7 +18,7 @@
 
 <h4> 정찬영(팀장) </h4>
 <p>-20133259 <br>
-  -Email : <br>
+  -Email : wjdckfrl55@naver.com <br>
   -자동 태그 기능 개발 및 데이터 베이스 설계  </p>
   <br>
   
