@@ -8,7 +8,7 @@
 
 ### 2. 소개 영상
 
-[![video](./image/video.png)](https://youtu.be~)
+[![video](./image/video.PNG)](https://youtu.be~)
 
 ### 3. 팀 소개
 
