@@ -1,37 +1,55 @@
-## Welcome to GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/kookmin-sw/cap-template/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+# Witty Photos - 더 똑똑한 갤러리
+### 1. 프로젝트 소개
+ 현대인들은 이전에 비해 훨씬 방대한 양의 이미지를 생산해 내고 있으며, 때때로 개인이 갖는 이미지가 지나치게 많아지기도 합니다.
+이 경우 사용자가 소유한 이미지들을 관리하는 것에 큰 어려움을 느끼게 되기도 합니다.
+이에 저희 팀은 이러한 문제를 해결하고 사용자 소유의 사진 속 정보를 이용하여 사용자의 라이프 스타일을 파악할 수 있는 어플리케이션을 구상하였습니다.
 
-### Markdown
+### 2. 소개 영상
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+[![video](./image/video.PNG)](https://youtu.be/jbSRx25W8fY)
 
-```markdown
-Syntax highlighted code block
+### 3. 팀 소개
 
-# Header 1
-## Header 2
-### Header 3
+#### 지도 교수 : 박하명 교수님
 
-- Bulleted
-- List
+<img src="./image/정찬영.jpg" width="200">
 
-1. Numbered
-2. List
+<h4> 정찬영(팀장) </h4>
+<p>-20133259 <br>
+  -Email : wjdckfrl55@naver.com <br>
+  -자동 태그 기능 개발 및 데이터 베이스 설계  </p>
+  <br>
+  
+<img src="./image/서민호.jpg" width="200">
 
-**Bold** and _Italic_ and `Code` text
+<h4> 서민호 </h4>
+<p>-20123371 <br>
+  -Email : jackseo94@naver.com <br>
+  -Android application 개발 및 UI/UX 담당  </p>
+  <br>
 
-[Link](url) and ![Image](src)
-```
+<img src="./image/손민지.jpg" width="200">
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+<h4> 손민지 </h4>
+<p>-20123376 <br>
+  -Email : amyminjison@gmail.com <br>
+  -Android application 개발 및 UI/UX 담당  </p>
+  <br>
 
-### Jekyll Themes
+<img src="./image/이가빈.jpg" width="200">
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/kookmin-sw/cap-template/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+<h4> 이가빈 </h4>
+<p>-20153203 <br>
+  -Email : kv829ly@naver.com <br>
+  -수동 태그 기능 개발 및 데이터 네트워크 알고리즘 구현  </p>
+  <br>
 
-### Support or Contact
+<img src="./image/장지은.jpg" width="200">
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+<h4> 장지은 </h4>
+<p>-20133256 <br>
+  -Email : killkkk666@kookmin.ac.kr <br>
+  -자동 태그 기능 개발 및 서버 구축  </p>
+  <br>
