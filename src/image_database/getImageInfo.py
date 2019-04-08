@@ -1,6 +1,6 @@
-import sqlite3
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
+import requests
 
 class GetDataInfo(object):
 
@@ -8,7 +8,6 @@ class GetDataInfo(object):
     exif_data = None
     image = None
 
-    #init함수
     def __init__(self, img_path):
         self.image = Image.open(img_path)
         self.get_exif_data()
@@ -90,8 +89,30 @@ class GetDataInfo(object):
 
         return lat, lon
 
+    #위도와 경도로 지역 주소를 찾아서 리턴해주는 함수
+    #구글맵 api사용
+    def get_address(lat, lon):
+        #국가 코드 KO (한국어로 출력)
+        country = 'KO'
+        #구글 맵 api 키
+        api_key = '' #api key 값은 보안 차원에서 지워서 올립니다
+        url = "https://maps.googleapis.com/maps/api/geocode/json?language=%s&latlng=%f,%f&key=%s" % (
+            country, lat, lon, api_key)
+        r = requests.get(url).json()
+
+        address = []
+        # 전체 주소 : full_adr = r['results'][1]['formatted_address']
+        address[3] = r['results'][1]['address_components'][-3]['long_name'] #city
+        address[1] = r['results'][1]['address_components'][-2]['long_name'] #local
+        address[0] = r['results'][1]['address_components'][-1]['long_name'] #country
+        return address
+
+    #시간 정보 추출
     def get_date_time(self):
         if 'DateTime' in self.exif_data:
             date_time = self.exif_data['DateTime']
         #날짜와 시간을 따로 분리해서 return한다.
-        return date_time[:10], date_time[10:]
+            return date_time[:10], date_time[10:]
+        else :
+            return None
+
