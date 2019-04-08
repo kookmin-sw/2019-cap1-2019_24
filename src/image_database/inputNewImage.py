@@ -1,6 +1,6 @@
 import sqlite3
 import os
-import getDataInfo
+import getImageInfo
 import faceEncoding
 import objectRecognition
 import manualTag
@@ -87,7 +87,3 @@ if __name__ == "__main__":
 
 	#새로운 이미지 파일 리스트 전달
 	pass_new_image_file_list(new_image_file_list)
-
-'''
-삭제된 이미지들은 db안에
-'''
