@@ -4,7 +4,7 @@
     android:layout_width="350dp"
     android:layout_height="300dp"
     android:layout_gravity="center"
-    android:background="#000000"
+    android:background="@drawable/rounded_corner"
     android:weightSum="5"
     android:orientation="vertical">
 
@@ -32,7 +32,5 @@
             android:layout_height="wrap_content"
             android:text="확인" />
     </LinearLayout>
-
-
 
 </LinearLayout>
