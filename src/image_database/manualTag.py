@@ -1,15 +1,20 @@
+# -*- coding: utf-8 -*-
+
 import sqlite3
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
-#새로운 태그인지 db에 있던 태그인지 판단하는 함수
+#(사용자가 입력한 태그가) 새로운 태그인지 db에 있던 태그인지 판단하는 함수
 def if_new_tag(tag, cur):
-
+    #Object_manual_tag 테이블에서 모든 정보를 가져온다.
     cur.execute("SELECT * FROM Object_manual_tag")
     rows = cur.fetchall()
-
+    
     #db에 태그가 하나도 존재하지 않으면 0을 리턴
     if (len(rows) == 0):
         return 0
-
+    
     # 해당 태그가 존재하지 않으면 tagID를 부여하기 위해 전체 태그의 수를 리턴하고
     # 해당 태그가 존재하면 -1을 리턴
     for row in rows:
@@ -17,10 +22,10 @@ def if_new_tag(tag, cur):
             return -1
         else:
             pass
-
     return len(rows)
 
 
+#tag_log 테이블에 이미지 파일 명과 태그 정보를 입력하는 함수
 def tag_log(cur, image_file_name, tagID):
 
     sql = "INSERT INTO Tag_log (imageFileName, manualTagID) VALUES (?,?)"
@@ -29,9 +34,9 @@ def tag_log(cur, image_file_name, tagID):
     return 0
 
 
-#태그가 들어왔을 때 시작하는 함수
-def input_manual_tag(database_file, path_dir, image_file_name, tag, categoryID):
-
+#사용자가 입력한 태그가 들어왔을 때 시작하는 함수
+def input_manual_tag(database_file, image_file_name, tag, categoryID):
+    #sqlite 실행
     con = sqlite3.connect(database_file)
     cur = con.cursor()
 
