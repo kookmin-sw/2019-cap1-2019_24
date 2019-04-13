@@ -21,10 +21,10 @@
     
 <img src="./image/정찬영.jpg" width="200">
 
-<h4> **정찬영** </h4>
+<h4> 정찬영 </h4>
 <p> - 학번 : 20133259 <br>
   - Email : wjdckfrl55@naver.com <br>
-  - 딥러닝 기반 이미지 인식으로 자동 태그 입력 기능 구현
+  - 딥러닝 기반 이미지 인식으로 자동 태그 입력 기능 구현 <br>
   - 태그 데이터 통계 및 네트워크 분석 </p>
   <br>
   
@@ -42,8 +42,8 @@
 <h4> 손민지 </h4>
 <p>- 학번 : 20123376 <br>
   - Email : amyminjison@gmail.com <br>
-  - Android application 개발
-  - UI/UX 기획 및 디자인 
+  - Android application 개발<br>
+  - UI/UX 기획 및 디자인 <br>
   - Android 데이터베이스 구축 </p>
   <br>
 
@@ -52,7 +52,7 @@
 <h4> 이가빈 </h4>
 <p>- 학번 : 20153203 <br>
   - Email : kv829ly@naver.com <br>
-  - Face recognition 기능 구현
+  - Face recognition 기능 구현 <br>
   - 태그 데이터 통계 및 네트워크 분석 </p>
   <br>
 
@@ -61,15 +61,15 @@
 <h4> 장지은 </h4>
 <p>- 학번 : 20133256 <br>
   - Email : killkkk666@kookmin.ac.kr <br>
-  - 서버 및 데이터베이스 설계, 구축
-  - 딥러닝 기반 이미지 인식으로 자동 태그 입력 기능 구현
+  - 서버 및 데이터베이스 설계, 구축<br>
+  - 딥러닝 기반 이미지 인식으로 자동 태그 입력 기능 구현 <br>
   - Face recognition 기능 구현 </p>
   <br>
 
 ---------------------------------------
 
 ## REFERENCE
-  ### 1. Object Detection with YOLO https://github.com/spmallick/learnopencv
+  1. Object Detection with YOLO https://github.com/spmallick/learnopencv <br>
   
   
 ## HOW TO USE
