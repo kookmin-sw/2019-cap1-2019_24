@@ -5,7 +5,7 @@
 ### 1. 프로젝트 소개
  현대인들은 이전에 비해 훨씬 방대한 양의 이미지를 생산해 내고 있으며, 때때로 개인이 갖는 이미지가 지나치게 많아지기도 합니다.<br>
  이 경우 사용자가 소유한 이미지들을 관리하는 것에 큰 어려움을 느끼게 되기도 합니다. <br>
- 본 프로젝트는 이러한 문제를 해결하기위해 딥러닝을 이용한 이미지 자동 태그 기능을 제공하고 사용자가 직접 태그를 추가, 삭제 등 관리할 수 있게 함으로써<br> 이미지 데이터 관리를 용이하게 합니다. 또한 태그 데이터를 분석하여 사용자의 라이프 스타일과 휴먼 네트워크 분석 결과를 유쾌하고 재치있게 전달하는 <br>어플리케이션을 제작합니다.
+ 본 프로젝트는 이러한 문제를 해결하기위해 딥러닝을 이용한 이미지 자동 태그 기능을 제공하고 사용자가 직접 태그를 추가, 삭제 등 관리할 수 있게 함으로써 **이미지 데이터 관리를 용이하게** 합니다. 또한 태그 데이터를 분석하여 **사용자의 라이프 스타일과 휴먼 네트워크** 정보를 유쾌하고 재치있게 전달하는 어플리케이션을 제작합니다.
  
 ### 2. Abstract
   In modern society, people produce a much larger amount of images than ever before. And sometimes the amount of images that individuals have goes too much. In this case, you may find it very difficult to manage the images that you own. 
@@ -72,10 +72,10 @@
   1. **Object Detection with YOLO** https://github.com/spmallick/learnopencv <br>
   
   
+---------------------------------------
   
 ## HOW TO USE
 
 
 
----------------------------------------
 
