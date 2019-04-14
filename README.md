@@ -70,7 +70,7 @@
 
 ## REFERENCE
   1. **Object Detection with YOLO** https://github.com/spmallick/learnopencv <br>
-  
+  2. **Python Face Recognition in Real Time** https://ukayzm.github.io/python-face-recognition/
   
 ---------------------------------------
   
