@@ -35,7 +35,7 @@ def cluster(face_vector_list, con):
     cur = con.cursor()
 
     #DBSCAN을 사용한 클러스터
-    clt = DBSCAN(metric="euclidean", n_jobs=-1)
+    clt = DBSCAN(metric="euclidean", n_jobs=-1, eps=0.3, min_samples=3)
     clt.fit(face_vector_list)
 
     # 분류한 값을 0,1, ... 차례대로 label을 매긴다 (비슷한 얼굴이 없으면 -1)
