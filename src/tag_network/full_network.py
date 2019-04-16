@@ -55,11 +55,15 @@ selected_community = community_lst[-1]
 for i, comm in enumerate(community_lst[-1]):
     for p in comm:
         G.nodes()[p]['community'] = i
+# 각 노드의 centrality를 계산
+node_centrality = nx.betweenness_centrality(G, weight='weight')
 
-plt.figure(figsize=(8, 4))
+plt.figure(figsize=(6, 8))
 pos = nx.spring_layout(G)
 
-nx.draw_networkx_nodes(G, pos=pos, node_size=200,
+# centrality에 따라 노드 크기를 다르게
+node_size = [(node_centrality[x] * 500)+100 for x in node_centrality]
+nx.draw_networkx_nodes(G, pos=pos, node_size=node_size,
                        node_color=[n[1]['community'] for n in G.nodes(data=True)],
                        cmap=plt.cm.gist_rainbow,
                        alpha=0.5, labels={n[0]: n[1]['community'] for n in G.nodes(data=True)})
@@ -80,6 +84,10 @@ for i, c in enumerate(plt.cm.gist_rainbow(np.linspace(0.0, 1.0, len(selected_com
     # s 도형의 크기, marker 도형 모양, alpha 불투명도(0투명, 1불투명)
     plt.scatter(tempx, tempy, s=100, marker='o', label=community_label_lst[i], alpha=0.5, zorder=0)
 plt.scatter(tempx, tempy, s=300, marker='o', c='white',  zorder=1)
+
+for p in pos:  # raise text positions
+    pos[p][1] += 0.07
+nx.draw_networkx_labels(G, pos)
 plt.legend()
 plt.show()
 
