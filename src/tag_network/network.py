@@ -9,7 +9,7 @@ class picture:
 			if(i==string):
 				return True
 		return False
-	def addTag(self, string):
+	def addTag(self, string):#새로 추가된다면 True반환
 		for i in self.tags:
 			if(i==string):
 				return False
@@ -32,6 +32,7 @@ class tagManager:
 				return False
 		self.tags.append(tag())
 		self.tags[len(self.tags)-1].name=string
+		self.tagSort()
 		return True
 	def getRelationship(self, tag1, tag2):#tag1이 등장할때 tag2도 같이 등장할 확률
 		for i in self.tags:
@@ -39,9 +40,19 @@ class tagManager:
 				for k in i.tagRelation:
 					if(k[0]==tag2):
 						return k[1]/i.numOfTags
+		return False#tag1 이나 #tag2중 하나 이상이 존재하지 않을경우
 	def printTagName(self):
 		for i in self.tags:
 			print(i.name)
+	def tagSort(self):
+		i=0
+		while(i<len(self.tags)):
+			k=i
+			while(k<len(self.tags)):
+				if(self.tags[i].name>self.tags[k].name):
+					self.tags[i],self.tags[k]=self.tags[k],self.tags[i]
+				k=k+1
+			i=i+1
 	
 
 class tag:
@@ -67,8 +78,6 @@ class tag:
 
 class manager:	
 	pictures=list()
-	def __init__(self):
-		self.pictures=[]
 	tagM=tagManager()
 	def addTagOnPicture(self, tagName, picture):
 		if(picture.addTag(tagName)):
@@ -87,23 +96,12 @@ class manager:
 							i.addRelation(k)
 	def addPicture(self, picture):#pictures에 특정 사진들을 추가
 		self.pictures.append(picture)#########미완
+		self.addTagOnPicture("User",self.pictures[len(self.pictures)-1])
 	def printTag(self):
 		for i in self.tagM.tags:
 			print(i.name)
-
-
-
-
-a=manager()
-b=picture()
-a.addPicture(b)
-a.addTagOnPicture("dog",a.pictures[0])
-a.addTagOnPicture("cat",a.pictures[0])
-a.addTagOnPicture("animals",a.pictures[0])
-c=picture()
-a.addPicture(c)
-a.addTagOnPicture("cow",a.pictures[1])
-a.addTagOnPicture("bird",a.pictures[1])
-a.addTagOnPicture("animals",a.pictures[1])
+	def __init__(self):
+		self.pictures=[]
+		
 
 
