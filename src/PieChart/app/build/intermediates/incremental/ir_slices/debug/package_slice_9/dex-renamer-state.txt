@@ -1,4 +1,0 @@
-#Thu Apr 18 03:18:58 KST 2019
-base.0=C\:\\Users\\MY\\AndroidStudioProjects\\PieChart\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\9
-path.0=classes.dex
-renamed.0=classes.dex
