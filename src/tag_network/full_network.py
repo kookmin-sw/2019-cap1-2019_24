@@ -2,13 +2,8 @@ import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
 import csv
-from networkx.algorithms import community
-
-import matplotlib.font_manager as fm
 from networkx.algorithms.community import girvan_newman
 from networkx.algorithms.community import coverage, performance
-
-
 
 # 커뮤니티 리스트
 community_lst = []
@@ -19,21 +14,15 @@ coverage_lst, performance_lst = [], []
 
 # 방향성 없는 네트워크 형성
 G = nx.Graph()
-
-
-# 가중치를 포함한 노드 간의 링크 생성
-
-
 reader = csv.reader(open("input.txt"), delimiter=',')
 for line in reader:
     if len(line) > 2:
         if float(line[2]) != 0.0:
-            #line format: u,v,w
-            G.add_edge(int(line[0]),int(line[1]),weight=float(line[2]))
+            # line format: u,v,w
+            G.add_edge(int(line[0]), int(line[1]), weight=float(line[2]))
     else:
-        #line format: u,v
-        G.add_edge(int(line[0]),int(line[1]),weight=1.0)
-
+        # line format: u,v
+        G.add_edge(int(line[0]), int(line[1]), weight=1.0)
 
 # 노드 삭제 코드
 # G.remove_node('K')
@@ -43,10 +32,10 @@ for line in reader:
 # print(G.nodes())
 # print(G.edges())
 
-
 # G를 그래프로 표현
-for i, comms in enumerate(girvan_newman(G)):
+pos = nx.spring_layout(G)
 
+for i, comms in enumerate(girvan_newman(G)):
     # performance의 변화폭이 많이 적어지면 더이상 cluster를 나누어도 이득이 없으므로 멈춤
     if i != 0 and abs(performance(G, comms) - performance_lst[-1]) < 0.01:
         break
@@ -66,16 +55,15 @@ selected_community = community_lst[-1]
 for i, comm in enumerate(community_lst[-1]):
     for p in comm:
         G.nodes()[p]['community'] = i
-
 # 각 노드의 centrality를 계산
-node_centrality = nx.pagerank(G, weight='weight')
+node_centrality = nx.betweenness_centrality(G, weight='weight')
 
 plt.figure(figsize=(6, 8))
-
 pos = nx.spring_layout(G)
+
 # centrality에 따라 노드 크기를 다르게
-# node_size = [(node_centrality[x] * 1600)+100 for x in node_centrality]
-nx.draw_networkx_nodes(G, pos=pos,
+node_size = [(node_centrality[x] * 500)+100 for x in node_centrality]
+nx.draw_networkx_nodes(G, pos=pos, node_size=node_size,
                        node_color=[n[1]['community'] for n in G.nodes(data=True)],
                        cmap=plt.cm.gist_rainbow,
                        alpha=0.5, labels={n[0]: n[1]['community'] for n in G.nodes(data=True)})
@@ -88,12 +76,10 @@ pos_max = (max((x for x, y in pos.values())), max((y for x, y in pos.values())))
 plt.xlim(pos_min[0]-0.1, pos_max[0]+0.1)
 plt.ylim(pos_min[1]-0.1, pos_max[1]+0.1)
 
-# 분류된 그룹의 라벨 리스트
+# 옆에 표시할 라벨 목록(분류된 그룹 수만큼 생성되도록 해야함)
 community_label_lst = []
-# 분류된 그룹 수만큼
 for i in range(len(selected_community)):
-    community_label_lst.append('set%d'%(i+1))
-
+    community_label_lst.append("set%d"%(i+1))
 
 tempx, tempy = 100, 100
 for i, c in enumerate(plt.cm.gist_rainbow(np.linspace(0.0, 1.0, len(selected_community)))):
@@ -101,8 +87,7 @@ for i, c in enumerate(plt.cm.gist_rainbow(np.linspace(0.0, 1.0, len(selected_com
     plt.scatter(tempx, tempy, s=100, marker='o', label=community_label_lst[i], alpha=0.5, zorder=0)
 plt.scatter(tempx, tempy, s=300, marker='o', c='white',  zorder=1)
 
-# 텍스트를 위치를 위로
-for p in pos:
+for p in pos:  # raise text positions
     pos[p][1] += 0.07
 nx.draw_networkx_labels(G, pos)
 plt.legend()
