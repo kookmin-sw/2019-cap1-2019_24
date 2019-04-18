@@ -1,8 +1,4 @@
-import pandas as pd
-import numpy as np
-import matplotlib
-import matplotlib.pyplot as plt
-
+#sampleData 에서 자료를 받아와 실행 가능
 import random
 
 
