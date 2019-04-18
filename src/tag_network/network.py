@@ -1,4 +1,6 @@
+#!/usr/bin/python
 
+import random
 
 class picture:
 	tags=[]#단순 string
@@ -14,9 +16,20 @@ class picture:
 			if(i==string):
 				return False
 		self.tags.append(string)
+		self.tagSort()
 		return True
 	def numOfTags(self):
 		return len(self.tags)
+	def tagSort(self):
+		i=0
+		while(i<len(self.tags)):
+			k=i
+			while(k<len(self.tags)):
+				if(self.tags[i]>self.tags[k]):
+					self.tags[i],self.tags[k]=self.tags[k],self.tags[i]
+				k=k+1
+			i=i+1
+			
 	def printTags(self):
 		for i in self.tags:
 			print(i)
@@ -34,13 +47,41 @@ class tagManager:
 		self.tags[len(self.tags)-1].name=string
 		self.tagSort()
 		return True
-	def getRelationship(self, tag1, tag2):#tag1이 등장할때 tag2도 같이 등장할 확률
+	def getRel(self, tag1, tag2, depth):
+		if(depth==0):
+			for i in self.tags:
+				if(i.name==tag1):
+					for k in i.tagRelation:
+						if(k[0]==tag2):
+							return k[1]/i.numOfTags
+			return 0#tag1 이나 #tag2중 하나 이상이 존재하지 않을경우
+		else:
+			result=0
+			for i in self.tags:
+				if(i.name==tag1):
+					for k in i.tagRelation:
+						if(k[0]!="User" and k[0]!=tag2 and k[0]!=i.name):
+							result=result+(self.getRelationship(tag1,k[0],0) * \
+							self.getRelationship(k[0],tag2,depth-1))
+					return result
+	def getRelationship(self, tag1, tag2, depth):#tag1이 등장할때 tag2도 같이 등장할 확률
+		i=0
+		result=0
+		while(i<=depth):
+			result=result+self.getRel(tag1,tag2,i)
+			i=i+1
+		return result / (2**depth)
+	def getMostCloseTag(self,tag):#tag와 가장 연관도가 큰 tag를 구함
+		point=0
+		imp=0
+		output=""
 		for i in self.tags:
-			if(i.name==tag1):
-				for k in i.tagRelation:
-					if(k[0]==tag2):
-						return k[1]/i.numOfTags
-		return False#tag1 이나 #tag2중 하나 이상이 존재하지 않을경우
+			if(i.name!=tag and i.name!="User"):
+				imp=self.getRelationship(tag,i.name,3)
+				if(imp>point):
+					point=imp
+					output=i.name
+		return output
 	def printTagName(self):
 		for i in self.tags:
 			print(i.name)
@@ -103,5 +144,6 @@ class manager:
 	def __init__(self):
 		self.pictures=[]
 		
+
 
 
