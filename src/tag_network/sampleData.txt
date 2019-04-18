@@ -17,3 +17,4 @@ cat
 cat pet
 dog pet person cat
 person computer chair desk
+cage pet
