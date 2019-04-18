@@ -1,9 +1,13 @@
-#!/usr/bin/python
+import pandas as pd
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
 
 import random
 
+
 class picture:
-	tags=[]#단순 string
+	tags=[]#string
 	def __init__(self):
 		self.tags=[]
 	def findTag(self, string):
@@ -36,7 +40,7 @@ class picture:
 
 
 class tagManager:
-	tags=list()#tag class가 인자로서 들어간다.
+	tags=list()#tag class
 	def __init__(self):
 		self.tags=[]
 	def addTag(self, string):
@@ -141,9 +145,25 @@ class manager:
 	def printTag(self):
 		for i in self.tagM.tags:
 			print(i.name)
+	def readData(self):
+		f=open("sampleData.txt",'r')
+		while(True):
+			line=f.readline()
+			if not line:break
+			else:
+				self.addPicture(picture())
+				self.addData(line)
+	def addData(self, string):
+		start=0
+		i=0
+		while(True):
+			if(string[i]==' '):
+				self.addTagOnPicture(string[start:i],self.pictures[len(self.pictures)-1])
+				start=i+1
+			elif(string[i]=='\n'):
+				self.addTagOnPicture(string[start:i],self.pictures[len(self.pictures)-1])
+				break
+			i=i+1
 	def __init__(self):
 		self.pictures=[]
 		
-
-
-
