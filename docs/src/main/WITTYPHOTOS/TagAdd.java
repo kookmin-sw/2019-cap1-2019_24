@@ -24,13 +24,8 @@ public class TagAdd extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag_add);
 
-        //버튼 변수 설정
-
+        
         btnInput = (Button)findViewById(R.id.btn_input);
-
-
-        //버튼 이벤트 지정
-
         btnInput.setOnClickListener(this);
 
 
