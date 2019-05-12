@@ -15,7 +15,9 @@ import android.widget.Button;
 public class TagAdd extends AppCompatActivity implements View.OnClickListener {
 
 
-    Button btnInput;
+    private Button btnInput;
+    private Uri imgPath;
+    private ImageView imageView;
 
 
 
@@ -23,12 +25,14 @@ public class TagAdd extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag_add);
-
-        
         btnInput = (Button)findViewById(R.id.btn_input);
+        imageView = findViewById(R.id.imageView);
         btnInput.setOnClickListener(this);
-
-
+        imgPath = getIntent().getParcelableExtra("path);
+                                
+        Glide.with(this).load(imgPath).apply(new RequestOptions().centerInside().diskCacheStrategy(DiskCacheStrategy.ALL)).into(imageView);
+                                                 
+                                               
     }
 
     @Override
