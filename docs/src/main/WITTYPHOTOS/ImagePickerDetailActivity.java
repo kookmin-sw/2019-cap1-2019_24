@@ -95,6 +95,24 @@ public class ImagePickerDetailActivity extends AppCompatActivity implements OnQu
         public ImageDetailViewHolder(View itemView) {
             super(itemView);
               imgThumb = itemView.findViewById(R.id.imagethumb);
+            
+             itemView.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View view) {
+
+                      int position = getLayoutPosition();
+                      if (position != RecyclerView.NO_POSITION) {
+                          PickerImage pickerImage = adapter.getItem(position);
+                          Intent intent = new Intent(ImagePickerDetailActivity.this, TagAdd.class);
+                          intent.putExtra("path" , pickerImage.imgPath);
+                          startActivity(intent);
+                      }
+
+                  }
+
+
+              });
+
 
         }
         public void onBindViewHolder(PickerImage image) {
