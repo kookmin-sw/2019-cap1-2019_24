@@ -46,6 +46,7 @@ public class TagAdd extends AppCompatActivity implements View.OnClickListener {
         btnInput = (Button)findViewById(R.id.btn_input);
         imageView = findViewById(R.id.imageView);
 
+        
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inMutable=true;
         Bitmap mBitmap = BitmapFactory.decodeResource(
@@ -53,6 +54,7 @@ public class TagAdd extends AppCompatActivity implements View.OnClickListener {
                 R.id.imageView,
                 options);
 
+        //produce rectangle for face detecting
         Paint mRectPaint = new Paint();
         mRectPaint.setStrokeWidth(5);
         mRectPaint.setColor(Color.BLACK);
@@ -63,7 +65,8 @@ public class TagAdd extends AppCompatActivity implements View.OnClickListener {
 
         Canvas tempCanvas = new Canvas(tempBitmap);
         tempCanvas.drawBitmap(mBitmap, 0,0, null);
-
+        
+        //face detecting 
         FaceDetector faceDetector = new FaceDetector.Builder(getApplicationContext()).setTrackingEnabled(false)
                 .build();
         if(!faceDetector.isOperational()) {
@@ -75,6 +78,7 @@ public class TagAdd extends AppCompatActivity implements View.OnClickListener {
         Frame frame = new Frame.Builder().setBitmap(mBitmap).build();
         SparseArray<Face> faces = faceDetector.detect(frame);
 
+        //get value 
         for(int i = 0; i < faces.size(); i++) {
             Face thisface = faces.valueAt(i);
 
