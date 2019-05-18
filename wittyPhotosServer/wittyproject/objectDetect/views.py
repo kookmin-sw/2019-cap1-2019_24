@@ -1,9 +1,6 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-import json
+from django.http import JsonResponse
 import cv2 as cv
 import numpy as np
-from objectDetect.models import GetImagePath, PostImageTag
 
 # Initialize the parameters
 confThreshold = 0.5  # Confidence threshold
@@ -27,17 +24,9 @@ net.setPreferableTarget(cv.dnn.DNN_TARGET_CPU)
 
 
 def returnAutoTag(request):
-
-    imagePath = request.
-    return JsonResponse({'imagePath': imagePath})
-
-#    return JsonResponse({'imagePath': 'imagePath'})
-#    imagePaths = json.loads(request.body)
-#    imageFileList = []
-#    for i in imagePaths['imagePath']:
-#        imageFileList += i
-#    return HttpResponse(object_detect(imageFileList))
-
+    imageFileName = request.GET.get('imageFileName')
+    tagData = object_detect(imageFileName)
+    return JsonResponse(tagData)
 
 # Get the names of the output layers
 def getOutputsNames(net):
@@ -85,30 +74,16 @@ def postprocess(frame, outs):
 
     return classIds
 
-
-def object_detect(imageFileList):
-    cv.namedWindow('image', cv.WINDOW_NORMAL)
-
-    for imgFileName in imageFileList:
-        img = cv.imread(imgFileName,1)
-
-        blob = cv.dnn.blobFromImage(img, 1 / 255, (inpWidth, inpHeight), [0, 0, 0], 1, crop=False)
-        net.setInput(blob)
-        outs = net.forward(getOutputsNames(net))
-        classIds = postprocess(img, outs)
-        tags = []
-
-        for classId in classIds:
-            tags += classes[classId]
-
-        tagData = {
-            'imageFileName': imgFileName,
-            'tags': tags
-        }
-        jsonString = json.dumps(tagData)
-
-        return jsonString
-#        shrink = cv.resize(img, None, fx=0.15, fy=0.15, interpolation=cv.INTER_AREA)
- #       cv.imshow(imgFileName, shrink)
-#        cv.waitKey(0)
-#        cv.destroyAllWindows()
+def object_detect(imageFileName):
+    img = cv.imread(imageFileName,1)
+    blob = cv.dnn.blobFromImage(img, 1 / 255, (inpWidth, inpHeight), [0, 0, 0], 1, crop=False)
+    net.setInput(blob)
+    outs = net.forward(getOutputsNames(net))
+    classIds = postprocess(img, outs)
+    tagData = {
+        'imageFileName': imageFileName,
+        'tag' : []
+    }
+    for classId in classIds:
+        tagData['tag'].append(classes[classId])
+    return tagData
