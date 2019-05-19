@@ -46,6 +46,27 @@ public class network {
 			return 0;
 		}
 	}
+	public String getMostCloseTag(String tag)//가장 연관도가 높은 tag를 반환
+	{
+		float point=0;
+		float imp=0;
+		String tag2;
+		String output="";
+		for(int i=0;i<getNumberOfRelaitiveTags(tag);i++)
+		{
+			tag2=getRelaitiveTagName(tag, i);
+			if(tag2!=tag && tag2!="User")
+			{
+				imp=getRelationship(tag, tag2, 3);
+				if(imp>point)
+				{
+					point=imp;
+					output=tag2;
+				}
+			}
+		}
+		return output;
+	}
 	public int getNumberOfRelaitiveTags(String tag1)//tag1의 이름을 하고 있는 테그와 연결된 테그의 숫자를 반환
 	{
 		return 0;
