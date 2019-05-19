@@ -18,8 +18,8 @@ public class network {
 		{
 			result=result+getRel(tag1,tag2,i);
 			i=i+1;
-			return (float) (result/Math.pow(2, depth));
 		}
+		return (float) (result/Math.pow(2, depth));
 	}
 	public int getRel(String tag1, String tag2, int depth)
 	{
@@ -41,7 +41,7 @@ public class network {
 			{
 				tagName=getRelaitiveTagName(tag1, i);
 				if(tagName!="User" && tagName!=tag2 && tagName!=tag1)
-					result=result+1
+					result=result+1;
 			}
 			return 0;
 		}
