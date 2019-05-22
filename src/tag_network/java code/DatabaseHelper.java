@@ -1,4 +1,4 @@
-package org.arielproject.dbtest;
+package com.example.clustering;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,13 +20,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     String CREATE_TABLE_TAGG = "create table "+TABLE_TAGG+
             "( _id integer primary key autoincrement, "+
-            "tag1 integer, "+
-            "tag2 integer, "+
+            "tag1 text, "+
+            "tag2 text, "+
             "count integer );";
 
     String CREATE_TABLE_TAGINFO = "create table "+TABLE_TAGINFO+
             "( _id integer primary key autoincrement, "+
-            "tag integer, "+
+            "tag text, "+
             "tagn text, "+
             "count integer );";
 

@@ -1,12 +1,18 @@
-package org.arielproject.dbtest;
+package com.example.clustering;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 public class Louvain implements Cloneable {
+    //tag id와 계산하여 반환하기 위해 임시로 주어지는 tag_num
+    public Map<String,Integer> tag_list = new HashMap<>();
+    Set<String> keys;
     int n;
     int m;
     int cluster[];
@@ -89,12 +95,28 @@ public class Louvain implements Cloneable {
         node_weight = new double[n];
         totalEdgeWeight = 0.0;
 
-
+        int t_num = 0;
         Cursor cursor = db.rawQuery("SELECT * FROM "+tablename2,null);
         while (cursor.moveToNext()) {
+            int u=0;
+            int v=0;
 
-            int u = cursor.getInt(1);
-            int v = cursor.getInt(2);
+            String n1 = cursor.getString(1);
+            if(tag_list.containsKey(n1)) {
+                u = tag_list.get(n1);
+            } else {
+                tag_list.put(n1, t_num);
+                u = t_num;
+                t_num++;
+            }
+            String n2 = cursor.getString(2);
+            if(tag_list.containsKey(n2)) {
+                v = tag_list.get(n2);
+            } else {
+                tag_list.put(n2, t_num);
+                v = t_num;
+                t_num++;
+            }
 
             double curw = cursor.getDouble(3);
             addEdge(u, v, curw);
@@ -110,6 +132,7 @@ public class Louvain implements Cloneable {
             }
         }
         resolution = 1 / totalEdgeWeight;
+        keys = tag_list.keySet();
     }
 
     void init_cluster() {
