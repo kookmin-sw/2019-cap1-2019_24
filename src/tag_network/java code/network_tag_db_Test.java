@@ -1,32 +1,24 @@
-package org.arielproject.dbtest;
+package com.example.dbtester;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-
-import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
+    TextView textView;
     SQLiteDatabase db;
 
-    TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = (TextView)findViewById(R.id.textView);
 
+        textView = (TextView)findViewById(R.id.textView);
         DatabaseHelper databaseHelper = new DatabaseHelper(this, "Test", null, 1);
 
         //쓰기 가능한 SQLiteDatabase 인스턴스
@@ -34,14 +26,18 @@ public class MainActivity extends AppCompatActivity {
 
         //한 사진에서 태그가 들어올 경우에 돌리는 함수
         String tag_id ="";
-        String tag_name;
+        //String tag_name;
         ArrayList<String> tmp_tag_id = new ArrayList<String>();
-        ArrayList<String> tmp_tag_name = new ArrayList<String>();
-        tag_name = find_tag_name(tag_id);
-        tmp_tag_id.add(tag_id);
-        tmp_tag_name.add(tag_name);
+        //ArrayList<String> tmp_tag_name = new ArrayList<String>();
+        //tag_name = find_tag_name(tag_id);
+        tmp_tag_id.add("moo1");
+        tmp_tag_id.add("moo2");
+        tmp_tag_id.add("noo1");
+        tmp_tag_id.add("moo3");
+        tmp_tag_id.add("foo5");
+        //tmp_tag_name.add(tag_name);
 
-        createNetworkEdge(tmp_tag_id,tmp_tag_name);
+        createNetworkEdge(tmp_tag_id);
 
         db.close();
         databaseHelper.close();
@@ -58,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
         } else if(tag_id.startsWith("m")){
             //object_manual_tag 가서 이름 찾을 것
             sql = "SELECT tag FROM Object_manual_tag WHERE tagID = "+tag_id;
-        } else if(tag_id.startsWith("f")){
-            //face_tag 가서 이름 찾을 것
+        } else if(tag_id.startsWith("l")){
+            //face_tag 가서 이름을 찾을 것
+            //아마 가져와야하는 이름은 faceid가 아니라 label이여야할 것 같음
         }
         return tag_name;
 
@@ -69,47 +66,39 @@ public class MainActivity extends AppCompatActivity {
     //tag_id가 하나씩 넘어오면 sql문으로 tag이름 찾아서 이름이랑 같이 hash map에 넣기
     //단 태그가 얼굴일 경우에는 facename 가져와야함 -> facename이 null일 경우 null로...
     //clustering 한다음에 face_name 넣어줘도 됨
-    void createNetworkEdge(ArrayList<String> tmp_tag_id, ArrayList<String> tmp_tag_name){
-        for(int i=0; i<tmp_tag_id.size(); i++){
-            for(int j=0; j<tmp_tag_id.size(); j++) {
-                //우선 순서대로 정렬이 안돼었을 경우를 위해서
+    void createNetworkEdge(ArrayList<String> tmp_tag_id) {
+        for (int i = 0; i < tmp_tag_id.size(); i++) {
+            for (int j = i+1; j < tmp_tag_id.size(); j++) {
                 int update_weight;
-                String find_weight;
-                Cursor c1;
-                Cursor c1_1;
+                String sql;
+                int r1, r2;
+                String find_w;
+                String u = tmp_tag_id.get(i);
+                String v = tmp_tag_id.get(j);
+                Cursor cursor;
+                sql = "SELECT * FROM tag_network WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "'";
+                cursor = db.rawQuery(sql, null);
+                r1 = cursor.getCount();
 
-                String sql = "SELECT COUNT(*) FROM tag_network WHERE tag_1_id = "+ tmp_tag_id.get(i) +" AND tag_2_id = "+tmp_tag_id.get(j);
-                c1 = db.rawQuery(sql, null);
-                c1.moveToFirst();
-                int r1 = c1.getInt(0);
+                sql = "SELECT * FROM tag_network WHERE tag_1_id = '" + v + "' AND tag_2_id = '" + u + "'";
+                cursor = db.rawQuery(sql, null);
+                r2 = cursor.getCount();
 
-                String sql2 = "SELECT COUNT(*) FROM tag_network WHERE tag_1_id = "+ tmp_tag_id.get(j) +" AND tag_2_id = "+tmp_tag_id.get(i);
-                c1 = db.rawQuery(sql2, null);
-                c1.moveToFirst();
-                int r2 = c1.getInt(0);
-
-                if(r1==1){
-                    find_weight = "SELECT weight FROM tag_network WHERE tag_1_id = "+ tmp_tag_id.get(i) +" AND tag_2_id = "+tmp_tag_id.get(j);
-                    c1_1 = db.rawQuery(find_weight, null);
-                    c1_1.moveToFirst();
-                    update_weight = c1_1.getInt(0)+1;
-                    db.execSQL("UPDATE tag_network SET weight = "+update_weight+" WHERE tag_1_id = "+ tmp_tag_id.get(i) +" AND tag_2_id = "+ tmp_tag_id.get(j));
-                } else if (r2==1){
-                    find_weight = "SELECT weight FROM tag_network WHERE tag_1_id = "+  tmp_tag_id.get(j) +" AND tag_2_id = "+tmp_tag_id.get(i);
-                    c1_1 = db.rawQuery(find_weight, null);
-                    c1_1.moveToFirst();
-                    update_weight = c1_1.getInt(0)+1;
-                    db.execSQL("UPDATE tag_network SET weight = "+update_weight+" WHERE tag_1_id = "+  tmp_tag_id.get(j) +" AND tag_2_id = "+tmp_tag_id.get(i));
-                } else {
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put("tag_1_id", tmp_tag_id.get(i));
-                    contentValues.put("tag_1_name", tmp_tag_name.get(i));
-                    contentValues.put("tag_2_id", tmp_tag_id.get(j));
-                    contentValues.put("tag_2_name", tmp_tag_name.get(j));
-                    contentValues.put("weight", 1);
-                    db.insert("tag_network", null, contentValues);
+                if (r1 == 1 && r2 == 0) {
+                    find_w = "SELECT weight FROM tag_network  WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "'";
+                    cursor = db.rawQuery(find_w, null);
+                    cursor.moveToFirst();
+                    update_weight = cursor.getInt(0) + 1;
+                    db.execSQL("UPDATE tag_network SET weight = " + update_weight + "  WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "';");
+                } else if (r2 == 1 && r1 == 0) {
+                    find_w = "SELECT weight FROM tag_network WHERE tag_1_id = '" + v + "' AND tag_2_id = '" + u + "'";
+                    cursor = db.rawQuery(find_w, null);
+                    cursor.moveToFirst();
+                    update_weight = cursor.getInt(0) + 1;
+                    db.execSQL("UPDATE tag_network SET weight = " + update_weight + " WHERE tag_1_id = '" + v + "' AND tag_2_id = '" + u + "';");
+                } else if (r1 == 0 && r2 == 0) {
+                    insertdata(u, v, 1);
                 }
-
             }
         }
     }
@@ -118,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         //해당 사진 파일 이름에 있는 태그들을 다 불러온다.(total_tag_list에서 태그 아이디와 매칭해서 태그 네임 같이 가져올 것)
         //새로 들어온 태그(아이디와 이름 정보가 있을테니까)와 매칭
         //역시나 각 순서쌍으로 createNetworkEdge() 이용해서 하면 됨.
+
 
     }
 
@@ -128,4 +118,12 @@ public class MainActivity extends AppCompatActivity {
         //지워지는 태그를 제외한 모든 태그 노드들과의 연결을 -1씩 해준다(tag id만 비교)
         //만약 -1을 했을때 0이 된다면 아예 삭제
     }
+    void insertdata(String id1, String id2, int weight){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("tag_1_id", id1);
+        contentValues.put("tag_2_id", id2);
+        contentValues.put("weight", weight);
+        db.insert("tag_network", null, contentValues);
+    }
+
 }
