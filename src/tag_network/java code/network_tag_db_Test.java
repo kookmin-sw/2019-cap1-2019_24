@@ -30,14 +30,18 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> tmp_tag_list = new ArrayList<String>();
         //ArrayList<String> tmp_tag_name = new ArrayList<String>();
         //tag_name = find_tag_name(tag_id);
-        tmp_tag_list.add("moo1");
-        tmp_tag_list.add("moo2");
-        tmp_tag_list.add("noo1");
-        tmp_tag_list.add("moo3");
-        tmp_tag_list.add("foo5");
-        //tmp_tag_name.add(tag_name);
 
-        createNetworkEdge(tmp_tag_list);
+
+//        tmp_tag_list.add("moo1");
+//        tmp_tag_list.add("moo2");
+//        tmp_tag_list.add("noo1");
+//        tmp_tag_list.add("moo3");
+//        tmp_tag_list.add("foo5");
+        //tmp_tag_name.add(tag_name);
+//        addNetworkEdge("mmmmmmmmggg//sss", "f005");
+
+//        createNetworkEdge(tmp_tag_list);
+        deleteNetworkEdge("mmmmmmmmggg//sss", "f005");
 
         db.close();
         databaseHelper.close();
@@ -77,17 +81,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void addNetworkEdge(String imagefilename, String new_tag){
+    void addNetworkEdge(String imagefilepath, String new_tag){
         //해당 태그 아이디랑 태그 네임이 들어올 것이고
         //사진의 태그를 전부 뽑아온다.
         //매칭 해서 넣어준다.
         ArrayList<String> tmp_tag_list = new ArrayList<String>();
-        String sql = "SELECT autoTagID, manualTagID, faceTagID FROM Tag_log WHERE imageFileName = '"+imagefilename+"';";
+        String sql = "SELECT autoTagId, manualTagId, faceTagId FROM Tag_log WHERE imgFilePath = '"+imagefilepath+"';";
         Cursor cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
-            String auto_Tag = cursor.getString(2);
-            String manual_Tag = cursor.getString(3);
-            String face_Tag = cursor.getString(4);
+            String auto_Tag = cursor.getString(0);
+            String manual_Tag = cursor.getString(1);
+            String face_Tag = cursor.getString(2);
+
             if (auto_Tag != null){
                 tmp_tag_list.add(auto_Tag);
             } else if (manual_Tag != null){
@@ -103,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void deleteNetworkEdge(String imagefilename, String delete_tag){
+    void deleteNetworkEdge(String imagefilepath, String delete_tag){
         //일단 우선 지워진 tag_log를 가져온다는 전제 하에.
         //delete 되어야하는 tag id받아온다.
 
@@ -112,12 +117,12 @@ public class MainActivity extends AppCompatActivity {
         //만약 -1을 했을때 0이 된다면 아예 삭제
 
         ArrayList<String> tmp_tag_list = new ArrayList<String>();
-        String sql = "SELECT autoTagID, manualTagID, faceTagID FROM Tag_log WHERE imageFileName = '"+imagefilename+"';";
+        String sql = "SELECT autoTagId, manualTagId, faceTagId FROM Tag_Log WHERE imgFilePath = '"+imagefilepath+"';";
         Cursor cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
-            String auto_Tag = cursor.getString(2);
-            String manual_Tag = cursor.getString(3);
-            String face_Tag = cursor.getString(4);
+            String auto_Tag = cursor.getString(0);
+            String manual_Tag = cursor.getString(1);
+            String face_Tag = cursor.getString(2);
             if (auto_Tag != null){
                 tmp_tag_list.add(auto_Tag);
             } else if (manual_Tag != null){
@@ -132,32 +137,36 @@ public class MainActivity extends AppCompatActivity {
             int update_weight;
             int r1, r2;
             String find_w;
-            sql = "SELECT * FROM tag_network WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "'";
+            sql = "SELECT * FROM Tag_network WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "'";
             cursor = db.rawQuery(sql, null);
             r1 = cursor.getCount();
 
-            sql = "SELECT * FROM tag_network WHERE tag_1_id = '" + v + "' AND tag_2_id = '" + u + "'";
+            sql = "SELECT * FROM Tag_network WHERE tag_1_id = '" + v + "' AND tag_2_id = '" + u + "'";
             cursor = db.rawQuery(sql, null);
             r2 = cursor.getCount();
 
             if (r1 == 1 && r2 == 0) {
-                find_w = "SELECT weight FROM tag_network  WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "'";
+                find_w = "SELECT weight FROM Tag_network  WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "'";
                 cursor = db.rawQuery(find_w, null);
                 cursor.moveToFirst();
                 update_weight = cursor.getInt(0) - 1;
                 //update_weight가 0이라면 tag_network에서 삭제
                 if (update_weight == 0){
-                    db.execSQL("UPDATE tag_network SET weight = " + update_weight + "  WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "';");
+                    db.execSQL("DELETE FROM Tag_network WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "';");
                 } else {
-                    db.execSQL("UPDATE tag_network SET weight = " + update_weight + "  WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "';");
+                    db.execSQL("UPDATE Tag_network SET weight = " + update_weight + "  WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "';");
                 }
 
             } else if (r2 == 1 && r1 == 0) {
-                find_w = "SELECT weight FROM tag_network WHERE tag_1_id = '" + v + "' AND tag_2_id = '" + u + "'";
+                find_w = "SELECT weight FROM Tag_network WHERE tag_1_id = '" + v + "' AND tag_2_id = '" + u + "'";
                 cursor = db.rawQuery(find_w, null);
                 cursor.moveToFirst();
                 update_weight = cursor.getInt(0) - 1;
-                db.execSQL("UPDATE tag_network SET weight = " + update_weight + " WHERE tag_1_id = '" + v + "' AND tag_2_id = '" + u + "';");
+                if (update_weight == 0){
+                    db.execSQL("DELETE FROM Tag_network WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "';");
+                } else {
+                    db.execSQL("DELETE Tag_network SET weight = " + update_weight + "  WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "';");
+                }
             }
         }
     }
@@ -168,28 +177,28 @@ public class MainActivity extends AppCompatActivity {
         int r1, r2;
         String find_w;
         Cursor cursor;
-        sql = "SELECT * FROM tag_network WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "'";
+        sql = "SELECT * FROM Tag_network WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "'";
         cursor = db.rawQuery(sql, null);
         r1 = cursor.getCount();
 
-        sql = "SELECT * FROM tag_network WHERE tag_1_id = '" + v + "' AND tag_2_id = '" + u + "'";
+        sql = "SELECT * FROM Tag_network WHERE tag_1_id = '" + v + "' AND tag_2_id = '" + u + "'";
         cursor = db.rawQuery(sql, null);
         r2 = cursor.getCount();
 
         if (r1 == 1 && r2 == 0) {
-            find_w = "SELECT weight FROM tag_network  WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "'";
+            find_w = "SELECT weight FROM Tag_network  WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "'";
             cursor = db.rawQuery(find_w, null);
             cursor.moveToFirst();
             update_weight = cursor.getInt(0) + 1;
-            db.execSQL("UPDATE tag_network SET weight = " + update_weight + "  WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "';");
+            db.execSQL("UPDATE Tag_network SET weight = " + update_weight + "  WHERE tag_1_id = '" + u + "' AND tag_2_id = '" + v + "';");
         } else if (r2 == 1 && r1 == 0) {
-            find_w = "SELECT weight FROM tag_network WHERE tag_1_id = '" + v + "' AND tag_2_id = '" + u + "'";
+            find_w = "SELECT weight FROM Tag_network WHERE tag_1_id = '" + v + "' AND tag_2_id = '" + u + "'";
             cursor = db.rawQuery(find_w, null);
             cursor.moveToFirst();
             update_weight = cursor.getInt(0) + 1;
             db.execSQL("UPDATE tag_network SET weight = " + update_weight + " WHERE tag_1_id = '" + v + "' AND tag_2_id = '" + u + "';");
         } else if (r1 == 0 && r2 == 0) {
-            insertdata("tag_network",u, v, 1);
+            insertdata("Tag_network",u, v, 1);
         }
     }
 
@@ -202,5 +211,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+//    void insertdata2(String tablename, String filepath, String autoid, String mid, String fid){
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put("autoTagId", autoid);
+//        contentValues.put("manualTagId", mid);
+//        contentValues.put("faceTagId", fid);
+//        contentValues.put("imgFilePath", filepath);
+//        db.insert(tablename, null, contentValues);
+//    }
 
 }
