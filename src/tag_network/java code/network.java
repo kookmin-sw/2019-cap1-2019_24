@@ -84,16 +84,19 @@ public class network {
 						{
 							if(taglist.get(v3).get(0)==allTags.get(v2))
 							{
-								taglist.get(v3).set(1,String.valueOf(Float.parseFloat(taglist.get(v3).get(1))+getRel(picturesTag.get(v1), allTags.get(v2), 2)));
+								taglist.get(v3).set(1,String.valueOf(Float.parseFloat(taglist.get(v3).get(1)) +
+										getRel(picturesTag.get(v1), allTags.get(v2), 2)));
 								bool=false;
 								break;
 							}
 						}
-						if(bool && getRel(picturesTag.get(v1), allTags.get(v2), 2)!=0 && checkExist(picturesTag, allTags.get(v2))==false)
+						if(bool && getRel(picturesTag.get(v1), allTags.get(v2), 2)!=0 && 
+								checkExist(picturesTag, allTags.get(v2))==false)
 						{
 							taglist.add(new Vector<String>());
 							taglist.get(taglist.size()-1).add(allTags.get(v2));
-							taglist.get(taglist.size()-1).add(String.valueOf(getRel(picturesTag.get(v1), allTags.get(v2), 2)));
+							taglist.get(taglist.size()-1).add(String.valueOf(getRel(picturesTag.get(v1), 
+									allTags.get(v2), 2)));
 						}
 					}
 				}
