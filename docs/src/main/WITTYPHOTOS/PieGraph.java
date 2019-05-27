@@ -16,6 +16,8 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 public class PieGraph extends AppCompatActivity {
+    
+    private ImageView next;
 
     float countNum[] = {78f, 23f, 11f, 65f, 33f};
     String tagName[] = {"tag1", "tag2", "tag3", "tag4", "tag5"};
@@ -26,6 +28,14 @@ public class PieGraph extends AppCompatActivity {
         setContentView(R.layout.activity_graph_dir);
 
         setupPieChart();
+        
+        next = findViewById(R.id.nextbutton);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PiegGraph.this, NetworkGraph.class));
+            }
+        });
     }
     private void setupPieChart(){
 
