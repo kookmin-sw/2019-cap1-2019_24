@@ -2,6 +2,7 @@ package com.example.WITTYPHOTOS;
 
 import android.app.Application;
 
+
 public class App extends Application {
 
     public static DBHelper mDB;
@@ -11,5 +12,7 @@ public class App extends Application {
         super.onCreate();
         mDB = new DBHelper(this);
 
+
     }
+
 }

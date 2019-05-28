@@ -46,7 +46,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String sql;
 
         sql = "CREATE TABLE Image_info (id integer primary key autoincrement, " +
-                "ImageNo integer, imageFileName text, imgFilePath text, created text, time text, gpsLat text, gpsLon integer)";
+                "ImageNo integer, imageFileName text, imgFilePath text, created text, time text, gpsLat text, gpsLon text)";
         sqLiteDatabase.execSQL(sql);
 
 
@@ -63,7 +63,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         sql = "CREATE TABLE Auto_Tag (tagID text primary key, name_eng text, name_kor text, category text, tagState integer)";
         sqLiteDatabase.execSQL(sql);
-
 
 
 
