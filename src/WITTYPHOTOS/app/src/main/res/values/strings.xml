@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name"> wittyphotos </string>
+    <string name="view_all"> 전체보기 </string>
+    <string name="baseUrl"> http://jangjieun.pythonanywhere.com/returnTag/ </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

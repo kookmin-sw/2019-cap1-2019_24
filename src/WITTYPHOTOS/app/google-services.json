@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "371901762918",
+    "firebase_url": "https://wittyphotos-5a708.firebaseio.com",
+    "project_id": "wittyphotos-5a708",
+    "storage_bucket": "wittyphotos-5a708.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371901762918:android:0b345e5968de0c52",
+        "android_client_info": {
+          "package_name": "com.example.WITTYPHOTOS"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkcQ-FiYNxV1607YOcFfenVT1xN0lO7JQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371901762918-p5fosjjsmivug88nnmspmarnqq3nql2a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
