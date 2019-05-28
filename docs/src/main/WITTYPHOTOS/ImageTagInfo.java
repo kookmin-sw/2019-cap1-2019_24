@@ -13,4 +13,5 @@ public class ImageTagInfo {
     public String created;
     public ArrayList<String> tags;
     public int tagType;
+    public String tag_name;
 }
