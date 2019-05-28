@@ -28,6 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UploadImageActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +37,22 @@ public class UploadImageActivity extends AppCompatActivity {
         ArrayList<String> allImageList = getPathOfAllImages();
 
         //<<추가>>이미지테이블에서 새로운 이미지를 검색하여 이미지리스트를 만든다 (Path+Name붙어있어야함)
+        ArrayList<String> oldImageList = App.mDB.imgPath();
         ArrayList<String> newImageList = new ArrayList<>();
 
-
+        
+        for (String ai : allImageList){
+            int cnt = 0;
+            for(String oi : oldImageList){
+                if(ai.compareTo(oi) ==0){
+                    cnt ++;
+                }
+            }
+            if(cnt ==0){
+                newImageList.add(ai);
+            }
+        }
+        
         //null값이 아니면 각각의 이미지 경로를 uploadImage함수에 전달하여 실행한다.
         if(allImageList != null){
             for (String list : allImageList){
