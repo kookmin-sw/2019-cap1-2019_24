@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.WITTYPHOTOS.R;
 
 public class SplashActivity extends AppCompatActivity {
-    //tagManager tagM;
  
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
