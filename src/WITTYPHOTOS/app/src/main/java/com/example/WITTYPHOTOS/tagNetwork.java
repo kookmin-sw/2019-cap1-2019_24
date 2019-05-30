@@ -1,7 +1,7 @@
 package com.example.WITTYPHOTOS;
 import java.util.Vector;
 
-public class tag_Info {
+public class tagNetwork {
 	static Vector<String> a = new Vector<String>();
 	public float getRelationship(String tag1, String tag2, int depth)
 	{
