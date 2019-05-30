@@ -1,3 +1,4 @@
+package com.example.WITTYPHOTOS;
 import java.util.Vector;
 
 public class tag_Info {
