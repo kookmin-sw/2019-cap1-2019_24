@@ -14,8 +14,4 @@ public class ImageTagInfo {
     public ArrayList<String> tags;
     public int tagType;
     public String tag_name;
-    public void addTag(String str)
-    {
-        tags.add(str);
-    }
 }
