@@ -86,13 +86,13 @@ public class GetAutoTagActivity extends AppCompatActivity {
                             for(int i=0;i<taglist.size();i++)
                             {
                                 km=true;
-                                for(int k=i;k<taglist.size();k++)
+                                for(int k=i+1;k<taglist.size();k++)
                                 {
                                     if(taglist.get(i)==taglist.get(k))
                                     {
-                                        taglist.remove(i);
+                                        taglist.remove(k);
                                         km=false;
-                                        break;
+                                        k--;
                                     }
                                 }
                                 if(km==false)
