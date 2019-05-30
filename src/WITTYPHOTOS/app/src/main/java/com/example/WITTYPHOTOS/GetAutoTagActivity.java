@@ -78,6 +78,31 @@ public class GetAutoTagActivity extends AppCompatActivity {
                         //태그 리스트
                         ArrayList<String> taglist = at.getTagList();
                         //<<추가>> DB에 저장한다.
+                        boolean im=true;
+                        boolean km=true;
+                        while(im)
+                        {
+                            im=true;
+                            for(int i=0;i<taglist.size();i++)
+                            {
+                                km=true;
+                                for(int k=i;k<taglist.size();k++)
+                                {
+                                    if(taglist[i]==taglist[k])
+                                    {
+                                        taglist.remove(i);
+                                        km=false;
+                                        break;
+                                    }
+                                }
+                                if(km==false)
+                                    break;
+                                im=false;
+                            }
+                            if(im==false)
+                                break;
+                        }
+                        //중복 삭제
                         App.mDB.insertAutoTag(ImageFileName, taglist);
                     }
 
