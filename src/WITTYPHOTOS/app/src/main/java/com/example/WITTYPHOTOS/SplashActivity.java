@@ -15,6 +15,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         startService(new Intent(SplashActivity.this,ServerConnection.class));
+        tagManager tagM;
 
         new Handler().postDelayed(new Runnable() {
             @Override
